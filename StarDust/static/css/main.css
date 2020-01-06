@@ -1,0 +1,23 @@
+body{
+    /* background: linear-gradient(to top left, gray, black);*/
+    background: #171717;
+    height: auto;
+    min-height: 100%;
+    width: 100%;
+}
+p{
+    color: white;
+}
+h2{
+    color: orange;
+}
+.round {
+    border-radius: 100px; /* Радиус скругления */
+    box-shadow: 0 0 0 3px gray, 0 0 13px #333; /* Параметры теней */
+}
+hr {
+    border: none; /* Убираем границу */
+    background-color: black; /* Цвет линии */
+    color: black; /* Цвет линии для IE6-7 */
+    height: 2px; /* Толщина линии */
+}
