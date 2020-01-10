@@ -2,7 +2,37 @@
 
 {% block title %}{{ article.article_title }}{% endblock %}
 {% block content %}
-    <h2>{{ article.article_title }}</h2>
-    <p>{{ article.author_text }}</p>
-    <em>{{ article.pub_date }}</em>
+    <h2 align="center">{{ article.article_title }}</h2>
+    <p align="center">{{ article.pub_date }}</p>
+
+    <p align="justify">{{ article.author_text }}</p>
+    <hr>
+    {% if latest %}
+        {% for a in latest %}
+            <div class="col-lg-4">
+                <a href="{% url 'detail' a.id %}"> {{ a.article_title }} </a>
+            </div><!-- /.col-lg-4 -->
+
+        {% endfor %}
+    {% endif %}
+
+<form action="{%  url 'leave_comment' article.id %}" method="post">
+
+    {% csrf_token %}
+
+    <input align="center" type="text" required placeholder=" имя" name="name"><br>
+    <textarea name="text" required="" placeholder="коммент" cols="30" rows="10"></textarea>
+    <br>
+    <button type="submit">Оставить комментарий</button>
+</form>
+{% endblock %}
+{% block comments %}
+    {% if comments %}
+        {% for c in comments %}
+            <p>
+                <strong>{{ c.author_name }} : {{ c.comment_text }}</strong>
+            </p>
+        {% endfor %}
+    {% endif %}
+
 {% endblock %}
