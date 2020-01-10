@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'mainpage.html' %}
 
-</body>
-</html>
+{% block title %}Замена{% endblock %}
+
+{% block content %}
+
+    {% if latest %}
+        {% for a in latest %}
+            <div class="col-lg-4">
+                <a href="{% url 'detail' a.id %}"> {{ a.article_title }} </a>
+            </div><!-- /.col-lg-4 -->
+
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}
