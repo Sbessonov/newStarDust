@@ -7,10 +7,13 @@ from .models import Article, Comment
 
 
 def index(request):
-    latest = Article.objects.order_by('-pub_date')[:2]
+    latest = Article.objects.order_by('-pub_date')[:10]
     return render(request, 'articles/list_articles.html', {'latest': latest})
 
 
 def detail(request, article_id):
-    a = Article.objects.order_by('-pub_date')[:3]
-    return render(request, 'articles/list_articles.html', {'latest': a})
+    try:
+        a = Article.objects.get(id=article_id)
+    except Exception:
+        raise Http404('Статья не найдена')
+    return render(request, 'articles/detail.html', {'article': a})
