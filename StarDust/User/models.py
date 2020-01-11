@@ -18,6 +18,7 @@ class Article(models.Model):
     article_title = models.CharField('название статьи', max_length=30)
     author_text = models.TextField('текст статьи')
     pub_date = models.DateTimeField('дата публикации')
+    img = models.ImageField(upload_to='images/', blank=True, null=True)
 
     def __str__(self):
         return self.article_title
