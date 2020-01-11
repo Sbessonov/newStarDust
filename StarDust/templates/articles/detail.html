@@ -7,14 +7,6 @@
 
     <p align="justify">{{ article.author_text }}</p>
     <hr>
-    {% if latest %}
-        {% for a in latest %}
-            <div class="col-lg-4">
-                <a href="{% url 'detail' a.id %}"> {{ a.article_title }} </a>
-            </div><!-- /.col-lg-4 -->
-
-        {% endfor %}
-    {% endif %}
 
 <form action="{%  url 'leave_comment' article.id %}" method="post">
 

@@ -7,7 +7,7 @@ from django.urls import reverse
 
 
 def index(request):
-    latest = Article.objects.order_by('-pub_date')[:10]
+    latest = Article.objects.order_by('-pub_date')
     return render(request, 'articles/list_articles.html', {'latest': latest})
 
 
