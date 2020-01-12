@@ -17,6 +17,7 @@
 {% block link1 %}
     <h1>{{ latest.0.article_title }}</h1>
     <p><a class="btn btn-lg btn-primary" href="{% url 'detail' latest.0.id %}" role="button">Читать</a></p>
+    <p>{{ latest.0.article_title }}</p>
 {% endblock %}
 {% block link2 %}
     <h1>{{ latest.1.article_title }}</h1>
@@ -25,4 +26,5 @@
 {% block link3 %}
     <h1>{{ latest.2.article_title }}</h1>
     <p><a class="btn btn-lg btn-primary" href="{% url 'detail' latest.2.id %}" role="button">Читать</a></p>
+
 {% endblock %}

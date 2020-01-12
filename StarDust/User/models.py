@@ -15,19 +15,26 @@ class User(models.Model):
 
 class Article(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    article_title = models.CharField('название статьи', max_length=30)
-    author_text = models.TextField('текст статьи')
+    title = models.CharField('название статьи', max_length=30)
+    text = models.TextField('текст статьи')
     pub_date = models.DateTimeField('дата публикации')
     img = models.ImageField(upload_to='images/', blank=True, null=True)
 
-    def __str__(self):
+    def to_json(self):
+        json = {
+            'title': self.article_title,
+            'text': self.author_text,
+
+        }
+
+    def __unicode__(self):
         return self.article_title
 
 
 class Comment(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     author_name = models.CharField('имя автора', max_length=50)
-    comment_text = models.CharField('текст комментария', max_length=200)
+    text = models.CharField('текст комментария', max_length=200)
 
     def __str__(self):
         return self.author_name

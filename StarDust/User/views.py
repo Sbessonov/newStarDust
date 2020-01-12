@@ -1,7 +1,10 @@
 from django.shortcuts import render
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, JsonResponse
 from .models import Article, Comment
 from django.urls import reverse
+from django.core import serializers
+import simplejson as sj
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -17,8 +20,11 @@ def detail(request, article_id):
     except Exception:
         raise Http404('Статья не найдена')
     comments_list = a.comment_set.order_by('-id')
-    return render(request, 'articles/detail.html', {'article': a, 'comments': comments_list})
-
+    js = {
+        'title': a.article_title,
+        'text': a.author_text
+    }
+    return JsonResponse(js)
 
 def register_user(request):
     pass
