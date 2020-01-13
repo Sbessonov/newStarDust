@@ -20,11 +20,12 @@ def detail(request, article_id):
     except Exception:
         raise Http404('Статья не найдена')
     comments_list = a.comment_set.order_by('-id')
-    js = {
-        'title': a.article_title,
-        'text': a.author_text
-    }
-    return JsonResponse(js)
+    send_info = a.to_dict()
+    comments_dict = []
+    for comment in comments_list:
+        comments_dict.append(comment.to_dict())
+    send_info['comments'] = comments_dict
+    return JsonResponse(send_info, )
 
 def register_user(request):
     pass

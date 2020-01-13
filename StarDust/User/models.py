@@ -18,23 +18,38 @@ class Article(models.Model):
     title = models.CharField('название статьи', max_length=30)
     text = models.TextField('текст статьи')
     pub_date = models.DateTimeField('дата публикации')
-    img = models.ImageField(upload_to='images/', blank=True, null=True)
+    img = models.ImageField(upload_to='static/img/', blank=True, null=True)
 
-    def to_json(self):
+    def to_dict(self):
         json = {
-            'title': self.article_title,
-            'text': self.author_text,
-
+            'id': self.id,
+            'title': self.title,
+            'text': self.text,
+            'pub_date': self.pub_date,
         }
+        try:
+            url = self.img.url
+        except ValueError:
+            url = ''
+        json['img_url'] = url
+        return json
 
-    def __unicode__(self):
-        return self.article_title
+    def __str__(self):
+        return self.title
 
 
 class Comment(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     author_name = models.CharField('имя автора', max_length=50)
     text = models.CharField('текст комментария', max_length=200)
+
+    def to_dict(self):
+        json = {
+            'article_id': self.article.id,
+            'author': self.author_name,
+            'text': self.text
+        }
+        return json
 
     def __str__(self):
         return self.author_name
