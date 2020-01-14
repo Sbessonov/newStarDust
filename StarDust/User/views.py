@@ -10,8 +10,18 @@ from django.http import HttpResponse
 
 
 def index(request):
-    latest = Article.objects.order_by('-pub_date')
-    return render(request, 'articles/list_articles.html', {'latest': latest})
+    try:
+        a = Article.objects.all()
+    except Exception:
+        raise Http404('Статья не найдена')
+    send_info = []
+    for s in a:
+        s = s.to_dict()
+        s.pop('text', None)
+        s.pop('pub_date', None)
+        send_info.append(s)
+        a = {'models': send_info}
+    return JsonResponse(a)
 
 
 def detail(request, article_id):
@@ -25,7 +35,7 @@ def detail(request, article_id):
     for comment in comments_list:
         comments_dict.append(comment.to_dict())
     send_info['comments'] = comments_dict
-    return JsonResponse(send_info, )
+    return JsonResponse(send_info)
 
 def register_user(request):
     pass
